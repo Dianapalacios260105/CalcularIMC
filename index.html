@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Masa Muscular</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(32, 42, 95, 0.1);
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: calc(100% - 22px);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calcular Masa Muscular</h1>
+        <form id="muscleForm">
+            <input type="number" id="peso" placeholder="Peso en kilogramos" required>
+            <input type="number" id="porcentajeGrasa" placeholder="Porcentaje de grasa corporal" required>
+            <button type="submit">Calcular</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('muscleForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let peso = parseFloat(document.getElementById('peso').value);
+            let porcentajeGrasaCorporal = parseFloat(document.getElementById('porcentajeGrasa').value);
+
+            if (isNaN(peso) || isNaN(porcentajeGrasaCorporal) || peso <= 0 || porcentajeGrasaCorporal < 0 || porcentajeGrasaCorporal > 100) {
+                alert("Por favor, introduce valores válidos.");
+                return;
+            }
+
+            let masaMuscular = calcularMasaMuscular(peso, porcentajeGrasaCorporal);
+            document.getElementById('result').innerText = "Tu masa muscular es: " + masaMuscular.toFixed(2) + " kg";
+        });
+
+        function calcularMasaMuscular(peso, porcentajeGrasaCorporal) {
+            let porcentajeGrasaDecimal = porcentajeGrasaCorporal / 100;
+            let masaMuscular = peso * (1 - porcentajeGrasaDecimal);
+            return masaMuscular;
+        }
+    </script>
+</body>
+</html>
+
+
